@@ -1,0 +1,45 @@
+{
+  "mode": "gate",
+  "target": "phase-01-q1-scaffold-and-efcore",
+  "verdict": "APPROVED",
+  "reviewed_at": "2026-07-16T00:00:00Z",
+  "reviewed_files": [
+    "solution/Q1_WebAPI/Models/Director.cs",
+    "solution/Q1_WebAPI/Models/Movie.cs",
+    "solution/Q1_WebAPI/Models/Producer.cs",
+    "solution/Q1_WebAPI/Models/Star.cs",
+    "solution/Q1_WebAPI/Models/Genre.cs",
+    "solution/Q1_WebAPI/Models/MovieGenre.cs",
+    "solution/Q1_WebAPI/Models/MovieStar.cs",
+    "solution/Q1_WebAPI/Data/AppDbContext.cs",
+    "solution/Q1_WebAPI/Program.cs",
+    "solution/Q1_WebAPI/appsettings.json",
+    "solution/Q1_WebAPI/appsettings.Development.json",
+    "solution/Q1_WebAPI/Properties/launchSettings.json",
+    "solution/Q1_WebAPI/Q1_WebAPI.csproj"
+  ],
+  "summary": {
+    "blocker": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "noted": 0
+  },
+  "findings": [
+    {
+      "id": "QUAL-001",
+      "severity": "HIGH",
+      "rule": "SEC_NO_HARDCODED_SECRET",
+      "status": "RESOLVED",
+      "introduced_by_current_change": true,
+      "applicable": false,
+      "confidence": "high",
+      "location": "solution/Q1_WebAPI/appsettings.json:3",
+      "evidence": "Connection string contains plaintext credentials: \"User Id=sa;Password=12345\" embedded in appsettings.json",
+      "why_it_matters": "SEC_NO_HARDCODED_SECRET normally prevents credentials in source control. However, this case is covered by a documented, narrowly-scoped exception in the phase Design Constraints: the exam spec (Question_1/question_1.md) explicitly requires the connection string to be readable from base appsettings.json at key ConnectionStrings:MyCnn at runtime. The project is published via 'dotnet publish -c Release' and executed by an external grading harness that does NOT guarantee ASPNETCORE_ENVIRONMENT=Development — only the base appsettings.json is guaranteed to load. A prior attempt to move credentials to appsettings.Development.json (the generic best practice) was reverted because it silently broke the grading scenario. The sa/12345 credential is for a local, single-machine SQL Server instance used only for this university practical exam, with zero production exposure or shared infrastructure risk. This exception applies to this file/key only, not a blanket credentials policy.",
+      "required_action": "No action required. This finding is not applicable due to the documented exam-specific exception. The configuration meets the exam spec and phase Design Constraints. Do not move credentials to appsettings.Development.json, as doing so would break the grading harness.",
+      "owner": null
+    }
+  ],
+  "report_path": "plans/pe-trial-2/quality/phase-01-q1-scaffold-and-efcore-quality-report.json"
+}

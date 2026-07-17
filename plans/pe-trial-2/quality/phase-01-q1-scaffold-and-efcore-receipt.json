@@ -1,0 +1,24 @@
+{
+  "target": "phase-01-q1-scaffold-and-efcore",
+  "verdict": "APPROVED",
+  "policy_version": "1.0.0",
+  "report_path": "plans/pe-trial-2/quality/phase-01-q1-scaffold-and-efcore-quality-report.json",
+  "reviewed_files": [
+    "solution/Q1_WebAPI/Data/AppDbContext.cs",
+    "solution/Q1_WebAPI/Models/Director.cs",
+    "solution/Q1_WebAPI/Models/Genre.cs",
+    "solution/Q1_WebAPI/Models/Movie.cs",
+    "solution/Q1_WebAPI/Models/MovieGenre.cs",
+    "solution/Q1_WebAPI/Models/MovieStar.cs",
+    "solution/Q1_WebAPI/Models/Producer.cs",
+    "solution/Q1_WebAPI/Models/Star.cs",
+    "solution/Q1_WebAPI/Program.cs",
+    "solution/Q1_WebAPI/Properties/launchSettings.json",
+    "solution/Q1_WebAPI/Q1_WebAPI.csproj",
+    "solution/Q1_WebAPI/appsettings.Development.json",
+    "solution/Q1_WebAPI/appsettings.json"
+  ],
+  "source_fingerprint": "sha256:9ed8cd1662a4780ef340ee1ce0ab2c141d301c6f0676b97bb48e91a64bed58de",
+  "reviewed_at": "2026-07-16T00:00:00Z",
+  "open_blocking_findings": 0
+}

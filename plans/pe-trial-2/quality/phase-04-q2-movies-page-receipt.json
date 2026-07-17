@@ -1,0 +1,17 @@
+{
+  "target": "phase-04-q2-movies-page",
+  "verdict": "APPROVED",
+  "policy_version": "1.0.0",
+  "report_path": "plans/pe-trial-2/quality/phase-04-q2-movies-page-quality-report.json",
+  "reviewed_files": [
+    "solution/Q2_MovieApp/Models/DirectorResponse.cs",
+    "solution/Q2_MovieApp/Models/MovieResponse.cs",
+    "solution/Q2_MovieApp/Pages/Movies/Director_Movie.cshtml",
+    "solution/Q2_MovieApp/Pages/Movies/Director_Movie.cshtml.cs",
+    "solution/Q2_MovieApp/Program.cs",
+    "solution/Q2_MovieApp/Services/GivenApiClient.cs"
+  ],
+  "source_fingerprint": "sha256:86a7c2700ec10d57b2dbeb680fb395896213476f8ad35f5c2bae252f02e472ee",
+  "reviewed_at": "2026-07-17T00:00:00Z",
+  "open_blocking_findings": 0
+}

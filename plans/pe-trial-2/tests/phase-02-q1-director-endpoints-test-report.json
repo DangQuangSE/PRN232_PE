@@ -1,0 +1,13 @@
+{
+  "phase": "phase-02-q1-director-endpoints",
+  "mode": "unit",
+  "verdict": "PASSED",
+  "reviewed_at": "2026-07-16T00:00:00Z",
+  "summary": {
+    "passed": 38,
+    "failed": 0,
+    "skipped": 0
+  },
+  "failures": [],
+  "report_path": "plans/pe-trial-2/tests/phase-02-q1-director-endpoints-test-report.json"
+}

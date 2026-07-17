@@ -1,0 +1,13 @@
+{
+  "phase": "phase-04-q2-movies-page",
+  "mode": "unit",
+  "verdict": "PASSED",
+  "reviewed_at": "2026-07-17T00:00:00Z",
+  "summary": {
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0
+  },
+  "failures": [],
+  "report_path": "plans/pe-trial-2/tests/phase-04-q2-movies-page-test-report.json"
+}
