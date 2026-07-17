@@ -1,0 +1,144 @@
+
+<h2>Courses</h2>
+<div style="display: flex;">
+
+    <div style="margin-right: 30px;width: 300px">
+        <h3>Teachers</h3>
+        <div>
+            <a id="di_1">
+               Richard Feynman
+            </a>
+        </div>
+        <div>
+            <a id="di_3">
+               Alan Turing
+            </a>
+        </div>
+        <div>
+            <a id="di_5">
+               Carl Sagan
+            </a>
+        </div>
+    </div>
+
+
+    <div style="width: 1000px">
+        <h2>List of Courses</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Start Date</th>
+                    <th>Description</th>
+                    <th>Language</th>
+                    <th>Teacher</th>
+                    <th>Assistants</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="td_title_0">Quantum Mechanics 101</td>
+                    <td id="td_startDate_0">09/01/2024</td>
+                    <td id="td_description_0">Introduction to quantum theory.</td>
+                    <td id="td_language_0">English</td>
+                    <td id="td_teacher_0">Richard Feynman</td>
+                    <td id="td_assistants_0">John Smith</td>
+                    <td id="td_action_0">
+                        <a id="btn_edit_0">
+                            Edit
+                        </a>
+                        |
+                        <a id="btn_delete_0">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="td_title_1">Introduction to Computing</td>
+                    <td id="td_startDate_1">09/10/2024</td>
+                    <td id="td_description_1">History and theory of computation.</td>
+                    <td id="td_language_1">English</td>
+                    <td id="td_teacher_1">Alan Turing</td>
+                    <td id="td_assistants_1">Sarah Johnson</td>
+                    <td id="td_action_1">
+                        <a id="btn_edit_1">
+                            Edit
+                        </a>
+                        |
+                        <a id="btn_delete_1">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Create Course</h3>
+        <div id="create_error" style="color: red;"></div>
+        <form>
+            <div>
+                <label>Title: </label>
+                <input type="text" id="create_input_title" />
+            </div>
+            <div>
+                <label>Start Date: </label>
+                <input type="date" id="create_input_startDate" />
+            </div>
+            <div>
+                <label>Description: </label>
+                <textarea id="create_input_description"></textarea>
+            </div>
+            <div>
+                <label>Language: </label>
+                <input type="text" id="create_input_language" />
+            </div>
+            <div>
+                <label>Teacher: </label>
+                <select id="create_select_teacher">
+                    <option value="">-- Select Teacher --</option>
+                    <option value="1">Richard Feynman</option>
+                    <option value="2">Marie Curie</option>
+                    <option value="3">Alan Turing</option>
+                    <option value="4">Ada Lovelace</option>
+                    <option value="5">Carl Sagan</option>
+                </select>
+            </div>
+            <button type="button" id="btn_create">Create</button>
+        </form>
+
+        <h3>Edit Course</h3>
+        <div id="edit_error" style="color: red;"></div>
+        <form style="display: none;">
+            <input type="hidden" id="edit_input_id" />
+            <div>
+                <label>Title: </label>
+                <input type="text" id="edit_input_title" />
+            </div>
+            <div>
+                <label>Start Date: </label>
+                <input type="date" id="edit_input_startDate" />
+            </div>
+            <div>
+                <label>Description: </label>
+                <textarea id="edit_input_description"></textarea>
+            </div>
+            <div>
+                <label>Language: </label>
+                <input type="text" id="edit_input_language" />
+            </div>
+            <div>
+                <label>Teacher: </label>
+                <select id="edit_select_teacher">
+                    <option value="">-- Select Teacher --</option>
+                    <option value="1">Richard Feynman</option>
+                    <option value="2">Marie Curie</option>
+                    <option value="3">Alan Turing</option>
+                    <option value="4">Ada Lovelace</option>
+                    <option value="5">Carl Sagan</option>
+                </select>
+            </div>
+            <button type="button" id="btn_save">Save</button>
+        </form>
+    </div>
+</div>

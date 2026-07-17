@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products by Designer</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>Designers & Products</h2>
+<div style="display: flex;">
+
+    <div style="margin-right: 30px; width: 200px;">
+        <h3>Designers</h3>
+        <div>
+            <a id="di_1">
+               Jony Ive
+            </a>
+        </div>
+        <div>
+            <a id="di_2">
+               Yves Behar
+            </a>
+        </div>
+        <div>
+            <a id="di_3">
+               Marc Newson
+            </a>
+        </div>
+        <div>
+            <a id="di_4">
+               Zaha Hadid
+            </a>
+        </div>
+        <div>
+            <a id="di_5">
+               Philippe Starck
+            </a>
+        </div>
+    </div>
+
+
+    <div style="width: 1000px;">
+        <h2>List of Products</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Launch Date</th>
+                    <th>Description</th>
+                    <th>Material</th>
+                    <th>Designer</th>
+                    <th>Reviewers</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="td_name_0">iPhone 12</td>
+                    <td id="td_launchDate_0">10/23/2020</td>
+                    <td id="td_description_0">Smartphone with A14 Bionic chip.</td>
+                    <td id="td_material_0">Aluminum</td>
+                    <td id="td_designer_0">Jony Ive</td>
+                    <td id="td_reviewers_0">John Smith,Michael Chen</td>
+                    <td id="td_action_0">
+                        <a id="btn_edit_0">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="td_name_1">MacBook Air</td>
+                    <td id="td_launchDate_1">01/15/2008</td>
+                    <td id="td_description_1">Ultra-thin laptop.</td>
+                    <td id="td_material_1">Aluminum</td>
+                    <td id="td_designer_1">Jony Ive</td>
+                    <td id="td_reviewers_1">John Smith</td>
+                    <td id="td_action_1">
+                        <a id="btn_edit_1">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Edit Product</h2>
+        <form style="display: none;" id="editForm">
+            <div>
+                <label>Product ID:</label>
+                <input type="hidden" id="input_id" />
+            </div>
+            <div>
+                <label>Name:</label>
+                <input type="text" id="input_name" />
+            </div>
+            <div>
+                <label>Launch Date:</label>
+                <input type="date" id="input_launchDate" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <textarea id="input_description"></textarea>
+            </div>
+            <div>
+                <label>Material:</label>
+                <input type="text" id="input_material" />
+            </div>
+            <div>
+                <label>Designer:</label>
+                <select id="select_designer">
+                    <option value="">-- Select Designer --</option>
+                    <option value="1">Jony Ive</option>
+                    <option value="2">Yves Behar</option>
+                    <option value="3">Marc Newson</option>
+                    <option value="4">Zaha Hadid</option>
+                    <option value="5">Philippe Starck</option>
+                </select>
+            </div>
+            <div id="edit_error" style="color: red; display: none;"></div>
+            <button type="submit" id="btn_save">Save</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+
+<h2>Authors</h2>
+<div style="display: flex;">
+
+    <div style="margin-right: 30px;width: 300px">
+        <div>
+            <a id="di_1">
+               J.K. Rowling
+            </a>
+        </div>
+        <div>
+            <a id="di_2">
+               George R.R. Martin
+            </a>
+        </div>
+        <div>
+            <a id="di_3">
+               Haruki Murakami
+            </a>
+        </div>
+    </div>
+
+
+    <div style="width: 1000px">
+        <h2>List of Books</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Publish Date</th>
+                    <th>Description</th>
+                    <th>Language</th>
+                    <th>Author</th>
+                    <th>Translators</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="td_title_0">Harry Potter and the Philosopher's Stone</td>
+                    <td id="td_publishDate_0">06/26/1997</td>
+                    <td id="td_description_0">A young boy discovers he is a wizard.</td>
+                    <td id="td_language_0">English</td>
+                    <td id="td_author_0">J.K. Rowling</td>
+                    <td id="td_translators_0"></td>
+                </tr>
+                <tr>
+                    <td id="td_title_1">A Game of Thrones</td>
+                    <td id="td_publishDate_1">08/01/1996</td>
+                    <td id="td_description_1">Noble families vie for control of the Iron Throne.</td>
+                    <td id="td_language_1">English</td>
+                    <td id="td_author_1">George R.R. Martin</td>
+                    <td id="td_translators_1"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+<h2>Create New Book</h2>
+<div>
+    <div>
+        <label>Title:</label>
+        <input type="text" id="input_title" />
+    </div>
+    <div>
+        <label>Publish Date:</label>
+        <input type="date" id="input_publishDate" />
+    </div>
+    <div>
+        <label>Description:</label>
+        <textarea id="input_description"></textarea>
+    </div>
+    <div>
+        <label>Language:</label>
+        <input type="text" id="input_language" />
+    </div>
+    <div>
+        <label>Author:</label>
+        <select id="select_author">
+            <option value="">-- Select Author --</option>
+            <option value="1">J.K. Rowling</option>
+            <option value="2">George R.R. Martin</option>
+            <option value="3">Haruki Murakami</option>
+            <option value="4">Agatha Christie</option>
+            <option value="5">Stephen King</option>
+        </select>
+    </div>
+    <div>
+        <button id="btn_create">Create</button>
+    </div>
+    <div id="create_error" style="color: red;"></div>
+</div>
+
