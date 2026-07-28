@@ -1,0 +1,109 @@
+﻿@page "/Products/Designer_Product"
+@model Q2.Pages.Designer_ProductModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products by Designer</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h2>Designers & Products</h2>
+    <div style="display: flex;">
+
+        <div style="margin-right: 30px; width: 200px;">
+            <h3>Designers</h3>
+            @foreach (var des in Model.Designers)
+            {
+                <div>
+                    <a id="di_@des.Id" href="/Products/Designer_Product?designerId=@des.Id">
+                        @des.FullName
+                    </a>
+                </div>
+            }
+        </div>
+
+
+        <div style="width: 1000px;">
+            <h2>List of Products</h2>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Launch Date</th>
+                        <th>Description</th>
+                        <th>Material</th>
+                        <th>Designer</th>
+                        <th>Reviewers</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td id="td_name_@product.Id">@product.Name</td>
+                            <td id="td_launchDate_@product.Id">@product.LaunchDate?.ToString("MM/dd/yyyy")</td>
+                            <td id="td_description_@product.Id">@product.Description</td>
+                            <td id="td_material_@product.Id">@product.Material</td>
+                            <td id="td_designer_@product.Id">@product.Designer?.FullName</td>
+                            <td id="td_reviewers_@product.Id">@string.Join(",", product.Reviewers.Select(r => r.FullName))</td>
+                            <td id="td_action_@product.Id">
+                                <a id="btn_edit_@product.Id" href="/Products/Designer_Product?editId=@product.Id">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            @if (Model.IsEditing)
+            {
+                <h2>Edit Product</h2>
+                <form  id="editForm" method="post">
+                    <div>
+                        <label>Product ID:</label>
+                        <input type="hidden" id="input_id" asp-for="EditProduct.Id" />
+                    </div>
+                    <div>
+                        <label>Name:</label>
+                        <input type="text" id="input_name" asp-for="EditProduct.Name" />
+                    </div>
+                    <div>
+                        <label>Launch Date:</label>
+                        <input type="date" id="input_launchDate" asp-for="EditProduct.LaunchDate" />
+                    </div>
+                    <div>
+                        <label>Description:</label>
+                        <textarea id="input_description" asp-for="EditProduct.Description"></textarea>
+                    </div>
+                    <div>
+                        <label>Material:</label>
+                        <input type="text" id="input_material" asp-for="EditProduct.Material" />
+                    </div>
+                    <div>
+                        <label>Designer:</label>
+                        <select id="select_designer" asp-for="EditProduct.DesignerId">
+                            <option value="">-- Select Designer --</option>
+                            @foreach (var des in Model.Designers)
+                            {
+                                <option value="@des.Id">@des.FullName</option>
+                            }
+                        </select>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.EditError))
+                    {
+                        <div id="edit_error" style="color: red; display: none;"></div>
+                    }
+                    <button type="submit" id="btn_save">Save</button>
+                </form>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

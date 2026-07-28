@@ -7,6 +7,9 @@ Bộ đề luyện tập mô phỏng đúng format của `pe_trial/` gốc (Pape
 | [SetA_Library_Create](SetA_Library_Create/) | Thư viện sách (Author/Book) | CRUD Author + list Book | **Create** | Q2 thêm mới Book qua form |
 | [SetB_Ecommerce_Update](SetB_Ecommerce_Update/) | Thương mại điện tử (Designer/Product) | CRUD Designer + list Product | **Update** | Q2 sửa Product qua form edit |
 | [SetC_School_Combined](SetC_School_Combined/) | Trường học (Teacher/Course) | CRUD Teacher + list Course | **Create + Update + Delete** | Q2 làm đủ 3 thao tác trên 1 trang |
+| [SetD_Ecommerce_SearchOne](SetD_Ecommerce_SearchOne/) | Thương mại điện tử | **Delete Designer** | **Search 1 tiêu chí** | Full set + GivenAPI riêng |
+| [SetE_Ecommerce_SearchMulti](SetE_Ecommerce_SearchMulti/) | Thương mại điện tử | **Update Designer** | **Search nhiều tiêu chí** | Full set + GivenAPI riêng |
+| [SetF_Ecommerce_Delete](SetF_Ecommerce_Delete/) | Thương mại điện tử | **Search Designer nhiều tiêu chí** | **Delete Product** | Full set + GivenAPI riêng |
 
 ## Cách dùng bộ đề này
 
@@ -30,14 +33,17 @@ GivenAPI của mỗi set chạy độc lập trên một port riêng (không đ�
 | Set | Port GivenAPI |
 |---|---|
 | SetA_Library_Create | `http://localhost:5200` |
-| SetB_Ecommerce_Update | `http://localhost:5201` |
+| SetB_Ecommerce_Update | `http://localhost:5100` |
 | SetC_School_Combined | `http://localhost:5202` |
+| SetD_Ecommerce_SearchOne | `http://localhost:5101` |
+| SetE_Ecommerce_SearchMulti | `http://localhost:5102` |
+| SetF_Ecommerce_Delete | `http://localhost:5103` |
 
 Trước khi luyện Question 2 của set nào, chạy `dotnet run` trong `given_pe_trial_practice/SetX_.../2/givenAPI/` (project đã build/test sẵn, dữ liệu in-memory reset mỗi lần chạy lại).
 
-Question 1 của cả 3 set đều tự đứng độc lập được — chỉ cần chạy script SQL kèm theo (`given_pe_trial_practice/SetX_.../1/database.sql`) trên SQL Server rồi code Web API như đề gốc.
+Question 1 của cả 6 set đều tự đứng độc lập được — chỉ cần chạy script SQL kèm theo (`given_pe_trial_practice/SetX_.../1/database.sql`) trên SQL Server rồi code Web API như đề gốc.
 
-## Quy tắc chung (áp dụng cho cả 3 set)
+## Quy tắc chung (áp dụng cho cả 6 set)
 
 - Framework: ASP.NET Core, **.NET 8.0**, Visual Studio 2022+.
 - Q1 chạy tại `http://localhost:5000`, connection string đọc từ `appsettings.json` key `ConnectionStrings:MyCnn`.

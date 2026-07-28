@@ -1,0 +1,96 @@
+@page "/Books/Author_Book"
+@model Q2.Pages.Author_BookModel
+@{
+}
+
+<h2>Authors</h2>
+<div style="display: flex;">
+
+    <div style="margin-right: 30px;width: 300px">
+        @foreach (var author in Model.Authors)
+        {
+            <div>
+                <a id="di_@author.Id" href="/Books/Author_Book?authorId=@author.Id">
+                    @author.FullName
+                </a>
+            </div>
+        }
+    </div>
+
+
+    <div style="width: 1000px">
+        <h2>List of Books</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Publish Date</th>
+                    <th>Description</th>
+                    <th>Language</th>
+                    <th>Author</th>
+                    <th>Translators</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.Books)
+                {
+                    <tr>
+                        <td id="td_title_@book.Id">@book.Title</td>
+                        <td id="td_publishDate_@book.Id">@book.PublishDate?.ToString("MM/dd/yyyy")</td>
+                        <td id="td_description_@book.Id">@book.Description</td>
+                        <td id="td_language_@book.Id">@book.Language</td>
+                        <td id="td_author_@book.Id">@book.Author?.FullName</td>
+                        <td id="td_translators_@book.Id">@string.Join(",", book.Translators.Select(t => t.FullName))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+<h2>Create New Book</h2>
+<form method="post">
+    <div>
+        <div>
+            <label>Title:</label>
+            <input name="Input.Title" value="@Model.Input.Title" type="text" id="input_title" />
+        </div>
+        <div>
+            <label>Publish Date:</label>
+            <input name="Input.PublishDate" value="@Model.Input.PublishDate?.ToString("yyyy-MM-dd")" type="date" id="input_publishDate" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <textarea name="Input.Description" id="input_description">@Model.Input.Description</textarea>
+        </div>
+        <div>
+            <label>Language:</label>
+            <input name="Input.Language" value="@Model.Input.Language" type="text" id="input_language" />
+        </div>
+        <div>
+            <label>Author:</label>
+            <select name="Input.AuthorId" id="select_author">
+                <option value="0">-- Select Author --</option>
+                @foreach(var author in Model.Authors)
+                {
+                    if (Model.Input.AuthorId == author.Id)
+                    {
+                        <option value="@author.Id" selected>@author.FullName</option>
+                    }
+                    else
+                    {
+                        <option value="@author.Id">@author.FullName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <button type="submit" id="btn_create">Create</button>
+        </div>
+        <div id="create_error" style="color: red;">@Model.CreateError</div>
+    </div>
+</form>
+
+
+
