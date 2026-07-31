@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Q1.Mapping;
 using Q1.Models;
 using Q1.Models.Dtos;
 
@@ -12,11 +12,9 @@ namespace Q1.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly PE_Practice_LibraryAContext _context;
-        private readonly IMapper _mapper;
-        public AuthorController(PE_Practice_LibraryAContext context, IMapper mapper)
+        public AuthorController(PE_Practice_LibraryAContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         [HttpGet("getauthors/{nationality}/{gender}")]
         public async Task<ActionResult<List<AuthorDto>>> GetAuthors(string nationality, string gender)
@@ -25,7 +23,7 @@ namespace Q1.Controllers
             var authors = await _context.Authors.
                 Where(a => a.Nationality == nationality && a.Male == isMale)
                 .ToListAsync();
-            return Ok(_mapper.Map<List<AuthorDto>>(authors));
+            return Ok(authors.Select(a => a.ToAuthorDto()).ToList());
         }
         [HttpGet("/getauthor/{id}")]
         public async Task<ActionResult<AuthorWithBookDTO>> GetAuthorById(int id)
@@ -34,7 +32,7 @@ namespace Q1.Controllers
                 .Include(a => a.Books).ThenInclude(b => b.Publisher)
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (author == null) return NotFound();
-            return Ok(_mapper.Map<AuthorWithBookDTO>(author));
+            return Ok(author.ToAuthorWithBookDto());
         }
         [HttpPost("/create")]
         public async Task<IActionResult> Create(CreateAuthorRequest request)

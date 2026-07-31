@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Q1.Mapping;
 using Q1.Models;
 using Q1.Models.Dtos;
 
@@ -11,11 +11,9 @@ namespace Q1.Controllers
     public class DesignerController : ControllerBase
     {
         private readonly PE_Practice_EcommerceBContext _context;
-        private readonly IMapper _mapper;
-        public DesignerController(PE_Practice_EcommerceBContext context, IMapper mapper)
+        public DesignerController(PE_Practice_EcommerceBContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         [HttpGet("getdesigners/{nationality}/{gender}")]
         public async Task<ActionResult<List<DesignerDto>>> GetDesigners(string nationality, string gender)
@@ -24,7 +22,7 @@ namespace Q1.Controllers
             var designers = await _context.Designers
                 .Where(d => d.Nationality == nationality && d.Male == isMale)
                 .ToListAsync();
-            return Ok(_mapper.Map<List<DesignerDto>>(designers));
+            return Ok(designers.Select(d => d.ToDesignerDto()).ToList());
         }
         [HttpGet("getdesigner/{id}")]
         public async Task<ActionResult<DesignerWithProductDto>> GetDesignerById(int id)
@@ -33,7 +31,7 @@ namespace Q1.Controllers
                 .Include(d => d.Products).ThenInclude(p => p.Manufacturer)
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (desinger == null) return NotFound();
-            return Ok(_mapper.Map<DesignerWithProductDto>(desinger));
+            return Ok(desinger.ToDesignerWithProductDto());
         }
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateDesignerRequest request)

@@ -1,12 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Q1.Mapping;
 using Q1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PE_PRN_Fall22B1Context>(
     otp => otp.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<DirectorProfile>());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

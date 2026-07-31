@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Q1.Mapping;
 using Q1.Models;
 using Q1.Models.Dtos;
-using System.Globalization;
 
 namespace Q1.Controllers
 {
@@ -13,11 +11,9 @@ namespace Q1.Controllers
     public class DirectorController : ControllerBase
     {
         private readonly PE_PRN_Fall22B1Context _context;
-        private readonly IMapper _autoMapper;
-        public DirectorController(PE_PRN_Fall22B1Context context, IMapper autoMapper)
+        public DirectorController(PE_PRN_Fall22B1Context context)
         {
             _context = context;
-            _autoMapper = autoMapper;
         }
         [HttpGet("getdirectors/{nationality}/{gender}")]
         public async Task<ActionResult<List<DirectorDto>>> GetDirectors(string nationality, string gender)
@@ -27,7 +23,7 @@ namespace Q1.Controllers
             var directors = await _context.Directors
                 .Where(d => d.Nationality.ToLower() == nationality.ToLower() && d.Male == isMale)
                 .ToListAsync();
-            return Ok(_autoMapper.Map<List<DirectorDto>>(directors));
+            return Ok(directors.Select(d => d.ToDirectorDto()).ToList());
         }
         [HttpGet("getdirector/{id}")]
         public async Task<ActionResult<DirectorWithMoviesDto>> GetDirectorById(int id)
@@ -36,7 +32,7 @@ namespace Q1.Controllers
              .Include(d => d.Movies).ThenInclude(m => m.Producer)
              .FirstOrDefaultAsync(d => d.Id == id);
             if (director == null) return NotFound();
-            return Ok(_autoMapper.Map<DirectorWithMoviesDto>(director));
+            return Ok(director.ToDirectorWithMoviesDto());
         }
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateDirectorRequest request)
