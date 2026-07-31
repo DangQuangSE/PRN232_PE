@@ -1,0 +1,93 @@
+
+<h2>Directors</h2>
+<div style="display: flex;">
+
+    <div style="margin-right: 30px;width: 300px">
+        <div>
+            <a id="di_1">
+               Christopher Nolan
+            </a>
+        </div>
+        <div>
+            <a id="di_2">
+               Steven Spielberg
+            </a>
+        </div>
+        <div>
+            <a id="di_3">
+               Bong Joon-ho
+            </a>
+        </div>
+    </div>
+
+
+    <div style="width: 1000px">
+        <h2>List of Movies</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Release Date</th>
+                    <th>Description</th>
+                    <th>Language</th>
+                    <th>Director</th>
+                    <th>Stars</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="td_title_0">Inception</td>
+                    <td id="td_releaseDate_0">07/16/2010</td>
+                    <td id="td_description_0">A thief who steals corporate secrets through dream-sharing technology.</td>
+                    <td id="td_language_0">English</td>
+                    <td id="td_director_0">Christopher Nolan</td>
+                    <td id="td_stars_0"></td>
+                </tr>
+                <tr>
+                    <td id="td_title_1">The Dark Knight</td>
+                    <td id="td_releaseDate_1">07/18/2008</td>
+                    <td id="td_description_1">Batman faces the Joker in Gotham City.</td>
+                    <td id="td_language_1">English</td>
+                    <td id="td_director_1">Christopher Nolan</td>
+                    <td id="td_stars_1"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+<h2>Create New Movie</h2>
+<div>
+    <div>
+        <label>Title:</label>
+        <input type="text" id="input_title" />
+    </div>
+    <div>
+        <label>Release Date:</label>
+        <input type="date" id="input_releaseDate" />
+    </div>
+    <div>
+        <label>Description:</label>
+        <textarea id="input_description"></textarea>
+    </div>
+    <div>
+        <label>Language:</label>
+        <input type="text" id="input_language" />
+    </div>
+    <div>
+        <label>Director:</label>
+        <select id="select_director">
+            <option value="">-- Select Director --</option>
+            <option value="1">Christopher Nolan</option>
+            <option value="2">Steven Spielberg</option>
+            <option value="3">Bong Joon-ho</option>
+            <option value="4">Kathryn Bigelow</option>
+            <option value="5">Greta Gerwig</option>
+        </select>
+    </div>
+    <div>
+        <button id="btn_create">Create</button>
+    </div>
+    <div id="create_error" style="color: red;"></div>
+</div>

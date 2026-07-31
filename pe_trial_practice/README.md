@@ -10,6 +10,7 @@ Bộ đề luyện tập mô phỏng đúng format của `pe_trial/` gốc (Pape
 | [SetD_Ecommerce_SearchOne](SetD_Ecommerce_SearchOne/) | Thương mại điện tử | **Delete Designer** | **Search 1 tiêu chí** | Full set + GivenAPI riêng |
 | [SetE_Ecommerce_SearchMulti](SetE_Ecommerce_SearchMulti/) | Thương mại điện tử | **Update Designer** | **Search nhiều tiêu chí** | Full set + GivenAPI riêng |
 | [SetF_Ecommerce_Delete](SetF_Ecommerce_Delete/) | Thương mại điện tử | **Search Designer nhiều tiêu chí** | **Delete Product** | Full set + GivenAPI riêng |
+| [SetG_Cinema_JwtAuth](SetG_Cinema_JwtAuth/) | Điện ảnh (Director/Movie), cùng schema với given chính thức | CRUD Director + **JWT login/protect** | **Create** | Q1 thêm bảo mật JWT (login + `[Authorize(Roles="Admin")]`), Q2 thêm mới Movie qua form |
 
 ## Cách dùng bộ đề này
 
@@ -38,6 +39,7 @@ GivenAPI của mỗi set chạy độc lập trên một port riêng (không đ�
 | SetD_Ecommerce_SearchOne | `http://localhost:5101` |
 | SetE_Ecommerce_SearchMulti | `http://localhost:5102` |
 | SetF_Ecommerce_Delete | `http://localhost:5103` |
+| SetG_Cinema_JwtAuth | `http://localhost:5104` |
 
 Trước khi luyện Question 2 của set nào, chạy `dotnet run` trong `given_pe_trial_practice/SetX_.../2/givenAPI/` (project đã build/test sẵn, dữ liệu in-memory reset mỗi lần chạy lại).
 
