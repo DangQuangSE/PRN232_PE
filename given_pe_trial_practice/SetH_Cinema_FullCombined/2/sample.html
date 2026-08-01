@@ -1,0 +1,146 @@
+
+<h2>Directors & Movies (Full Combined)</h2>
+<div style="display: flex;">
+
+    <div style="margin-right: 30px;width: 300px">
+        <div>
+            <a id="di_1">
+               Christopher Nolan
+            </a>
+        </div>
+        <div>
+            <a id="di_2">
+               Steven Spielberg
+            </a>
+        </div>
+        <div>
+            <a id="di_3">
+               Bong Joon-ho
+            </a>
+        </div>
+    </div>
+
+    <div style="width: 1100px">
+
+        <h3>Search</h3>
+        <form>
+            <input type="text" id="input_title" placeholder="Title contains" />
+            <input type="text" id="input_language" placeholder="Language contains" />
+            <select id="select_director">
+                <option value="">-- Any Director --</option>
+                <option value="1">Christopher Nolan</option>
+                <option value="2">Steven Spielberg</option>
+                <option value="3">Bong Joon-ho</option>
+                <option value="4">Kathryn Bigelow</option>
+                <option value="5">Greta Gerwig</option>
+            </select>
+            <input type="number" id="input_fromYear" placeholder="From year" />
+            <input type="number" id="input_toYear" placeholder="To year" />
+            <button id="btn_search">Search</button>
+            <a id="btn_reset">Reset</a>
+        </form>
+        <div id="search_error" style="color: red;"></div>
+        <div id="search_message"></div>
+
+        <h2>List of Movies</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Release Date</th>
+                    <th>Description</th>
+                    <th>Language</th>
+                    <th>Director</th>
+                    <th>Stars</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="movie_rows">
+                <tr>
+                    <td id="td_title_0">Inception</td>
+                    <td id="td_releaseDate_0">07/16/2010</td>
+                    <td id="td_description_0">A thief who steals corporate secrets through dream-sharing technology.</td>
+                    <td id="td_language_0">English</td>
+                    <td id="td_director_0">Christopher Nolan</td>
+                    <td id="td_stars_0"></td>
+                    <td id="td_action_0">
+                        <a id="btn_edit_0">Edit</a>
+                        <a id="btn_delete_0">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        <h2>Create New Movie</h2>
+        <div>
+            <div>
+                <label>Title:</label>
+                <input type="text" id="create_input_title" />
+            </div>
+            <div>
+                <label>Release Date:</label>
+                <input type="date" id="create_input_releaseDate" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <textarea id="create_input_description"></textarea>
+            </div>
+            <div>
+                <label>Language:</label>
+                <input type="text" id="create_input_language" />
+            </div>
+            <div>
+                <label>Director:</label>
+                <select id="create_select_director">
+                    <option value="">-- Select Director --</option>
+                    <option value="1">Christopher Nolan</option>
+                    <option value="2">Steven Spielberg</option>
+                    <option value="3">Bong Joon-ho</option>
+                    <option value="4">Kathryn Bigelow</option>
+                    <option value="5">Greta Gerwig</option>
+                </select>
+            </div>
+            <div>
+                <button id="btn_create">Create</button>
+            </div>
+            <div id="create_error" style="color: red;"></div>
+        </div>
+
+        <hr>
+        <h2>Edit Movie</h2>
+        <form style="display: none;" id="editForm">
+            <input type="hidden" id="edit_input_id" />
+            <div>
+                <label>Title:</label>
+                <input type="text" id="edit_input_title" />
+            </div>
+            <div>
+                <label>Release Date:</label>
+                <input type="date" id="edit_input_releaseDate" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <textarea id="edit_input_description"></textarea>
+            </div>
+            <div>
+                <label>Language:</label>
+                <input type="text" id="edit_input_language" />
+            </div>
+            <div>
+                <label>Director:</label>
+                <select id="edit_select_director">
+                    <option value="1">Christopher Nolan</option>
+                    <option value="2">Steven Spielberg</option>
+                    <option value="3">Bong Joon-ho</option>
+                    <option value="4">Kathryn Bigelow</option>
+                    <option value="5">Greta Gerwig</option>
+                </select>
+            </div>
+            <div id="edit_error" style="color: red; display: none;"></div>
+            <button type="submit" id="btn_save">Save</button>
+        </form>
+
+        <div id="delete_error" style="color: red;"></div>
+    </div>
+</div>
