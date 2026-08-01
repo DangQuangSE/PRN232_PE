@@ -1,0 +1,134 @@
+@page "/Movies/Director_Movie"
+@model Q2.Pages.Movies.Director_MovieModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies by Director</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h2>Directors & Movies</h2>
+    <div style="display: flex;">
+
+        <div style="margin-right: 30px; width: 200px;">
+            <h3>Directors</h3>
+            @foreach (var director in Model.Directors)
+            {
+                <div>
+                    <a id="di_@director.Id" href="/Movies/Director_Movie?directorId=@director.Id">
+                        @director.FullName
+                    </a>
+                </div>
+            }
+        </div>
+
+        <div style="width: 1100px;">
+
+            <h3>Search</h3>
+            <form method="get" action="/Movies/Director_Movie">
+                <input type="text" id="input_title" name="title" value="@Model.Title" placeholder="Title contains" />
+                <input type="text" id="input_language" name="language" value="@Model.Language" placeholder="Language contains" />
+                <select id="select_director" name="directorId">
+                    <option value="">-- Any Director --</option>
+                    @foreach (var director in Model.Directors)
+                    {
+                        <option value="@director.Id" selected="@(Model.DirectorId == director.Id)">@director.FullName</option>
+                    }
+                </select>
+                <input type="number" id="input_fromYear" name="fromYear" value="@Model.FromYear" placeholder="From year" />
+                <input type="number" id="input_toYear" name="toYear" value="@Model.ToYear" placeholder="To year" />
+                <button type="submit" id="btn_search">Search</button>
+                <a id="btn_reset" href="/Movies/Director_Movie">Reset</a>
+            </form>
+            @if (!string.IsNullOrEmpty(Model.SearchError))
+            {
+                <div id="search_error" style="color: red;">@Model.SearchError</div>
+            }
+            @if (!string.IsNullOrEmpty(Model.SearchMessage))
+            {
+                <div id="search_message">@Model.SearchMessage</div>
+            }
+
+            <h2>
+                List of Movies
+                <a id="link_create_movie" href="/Movies/Create_Movie">Create New Movie</a>
+            </h2>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Release Date</th>
+                        <th>Description</th>
+                        <th>Language</th>
+                        <th>Director</th>
+                        <th>Stars</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="movie_rows">
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <tr>
+                            <td id="td_title_@movie.Id">@movie.Title</td>
+                            <td id="td_releaseDate_@movie.Id">@movie.ReleaseDate?.ToString("MM/dd/yyyy")</td>
+                            <td id="td_description_@movie.Id">@movie.Description</td>
+                            <td id="td_language_@movie.Id">@movie.Language</td>
+                            <td id="td_director_@movie.Id">@movie.Director?.FullName</td>
+                            <td id="td_stars_@movie.Id">@string.Join(",", movie.Stars.Select(s => s.FullName))</td>
+                            <td id="td_action_@movie.Id">
+                                <a id="btn_edit_@movie.Id" href="/Movies/Director_Movie?editId=@movie.Id">Edit</a>
+                                <a id="btn_delete_@movie.Id" href="/Movies/Director_Movie?handler=Delete&id=@movie.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (!string.IsNullOrEmpty(Model.DeleteError))
+            {
+                <div id="delete_error" style="color: red;">@Model.DeleteError</div>
+            }
+
+            @if (Model.IsEditing)
+            {
+                <hr>
+                <h2>Edit Movie</h2>
+                <form id="editForm" method="post" asp-page-handler="Save">
+                    <input type="hidden" id="edit_input_id" asp-for="EditMovie.Id" />
+                    <div>
+                        <label>Title:</label>
+                        <input type="text" id="edit_input_title" asp-for="EditMovie.Title" />
+                    </div>
+                    <div>
+                        <label>Release Date:</label>
+                        <input type="date" id="edit_input_releaseDate" asp-for="EditMovie.ReleaseDate" />
+                    </div>
+                    <div>
+                        <label>Description:</label>
+                        <textarea id="edit_input_description" asp-for="EditMovie.Description"></textarea>
+                    </div>
+                    <div>
+                        <label>Language:</label>
+                        <input type="text" id="edit_input_language" asp-for="EditMovie.Language" />
+                    </div>
+                    <div>
+                        <label>Director:</label>
+                        <select id="edit_select_director" asp-for="EditMovie.DirectorId">
+                            @foreach (var director in Model.Directors)
+                            {
+                                <option value="@director.Id">@director.FullName</option>
+                            }
+                        </select>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.EditError))
+                    {
+                        <div id="edit_error" style="color: red;">@Model.EditError</div>
+                    }
+                    <button type="submit" id="btn_save">Save</button>
+                </form>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

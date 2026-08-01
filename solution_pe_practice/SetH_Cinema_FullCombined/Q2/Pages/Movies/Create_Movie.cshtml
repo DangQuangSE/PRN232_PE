@@ -1,0 +1,48 @@
+@page "/Movies/Create_Movie"
+@model Q2.Pages.Movies.Create_MovieModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Movie</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h2>Create New Movie</h2>
+    <form id="createForm" method="post">
+        <div>
+            <label>Title:</label>
+            <input type="text" id="input_title" asp-for="NewMovie.Title" />
+        </div>
+        <div>
+            <label>Release Date:</label>
+            <input type="date" id="input_releaseDate" asp-for="NewMovie.ReleaseDate" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <textarea id="input_description" asp-for="NewMovie.Description"></textarea>
+        </div>
+        <div>
+            <label>Language:</label>
+            <input type="text" id="input_language" asp-for="NewMovie.Language" />
+        </div>
+        <div>
+            <label>Director:</label>
+            <select id="select_director" asp-for="NewMovie.DirectorId">
+                <option value="">-- Select Director --</option>
+                @foreach (var director in Model.Directors)
+                {
+                    <option value="@director.Id">@director.FullName</option>
+                }
+            </select>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.CreateError))
+        {
+            <div id="create_error" style="color: red;">@Model.CreateError</div>
+        }
+        <button type="submit" id="btn_create">Create</button>
+        <a id="btn_cancel" href="/Movies/Director_Movie">Cancel</a>
+    </form>
+
+</body>
+</html>

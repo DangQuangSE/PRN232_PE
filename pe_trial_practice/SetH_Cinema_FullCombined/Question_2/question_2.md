@@ -3,7 +3,7 @@
 > Instructions chung: xem [../../README.md](../../README.md)
 > Phần đầu câu này nằm chung trang với cuối Question 1.
 
-In this question, you are asked to write MVC/Razor Pages model that shows information about movies, and supports **creating**, **editing**, **deleting**, and **searching (by one or many criteria)** — all on one page. Data is fetched/written by calling pre-existing RESTful APIs hosted at **GivenAPIBaseUrl**, provided by a separate project named **GivenAPI** at `given_pe_trial_practice/SetH_Cinema_FullCombined/2/givenAPI` (`http://localhost:5105`).
+In this question, you are asked to write MVC/Razor Pages model that shows information about movies, and supports **creating** (on its own separate page), **editing**, **deleting**, and **searching (by one or many criteria)** — the latter three on one page. Data is fetched/written by calling pre-existing RESTful APIs hosted at **GivenAPIBaseUrl**, provided by a separate project named **GivenAPI** at `given_pe_trial_practice/SetH_Cinema_FullCombined/2/givenAPI` (`http://localhost:5105`).
 
 ## 1. Given APIs include
 
@@ -26,11 +26,11 @@ In this question, you are asked to write MVC/Razor Pages model that shows inform
   { "GivenAPIBaseUrl": "http://localhost:5105" }
   ```
 - All input and output elements in the HTML source must have an **'id'** attribute.
-- This is the hardest practice page — four independent operations (Search, Create, Update, Delete) share one page. Keep the id namespaces for Search, the Create form, and the Edit form **strictly separate** (see §3.4–3.6) so a grader script can locate each one unambiguously.
+- Unlike the other practice sets, **Create lives on its own page** (`/Movies/Create_Movie`), separate from the list/search/edit/delete page (`/Movies/Director_Movie`). Keep the id namespace for the Edit form on the list page prefixed `edit_` so it never collides with the (unprefixed) Search fields on that same page (see §3.4–3.6).
 
 ## 3. Requirements
 
-The web application has a page at url **`/Movies/Director_Movie`**, which includes five main parts.
+The application has two pages: the main list page at **`/Movies/Director_Movie`** (four parts: list, filter, search, edit, delete), and a separate Create page at **`/Movies/Create_Movie`**.
 
 ### 3.1. Display List of Movies
 
@@ -40,6 +40,7 @@ On first access, display all movies in table format:
 - Each `<td>` has id **`td_{columnName}_{movieId}`** (camelCase columnName: `title`, `releaseDate`, `description`, `language`, `director`, `stars`).
 - Each row's Action cell has two `<a>` links: **Edit** with id **`btn_edit_{movieId}`**, and **Delete** with id **`btn_delete_{movieId}`** (inner text `Delete`).
 - The table body itself has id **`movie_rows`** (so Search can clear/refill it without touching the rest of the page).
+- Above the table, a link **`<a>`** with id **`link_create_movie`** (inner text e.g. `Create New Movie`) navigates to the separate Create page, `/Movies/Create_Movie`.
 
 ### 3.2. Display all Directors and Filter by Director
 
@@ -47,7 +48,7 @@ List of Directors on the **left**, each `<a>` with id **`di_{directorId}`**. Cli
 
 ### 3.3. Search by one or many criteria
 
-A search form above the table (own id namespace, no prefix — distinct from `create_`/`edit_`):
+A search form above the table (own id namespace, no prefix — distinct from `edit_`):
 
 | Criterion | Element | Id | Query parameter |
 |---|---|---|---|
@@ -68,20 +69,20 @@ A search form above the table (own id namespace, no prefix — distinct from `cr
 - If `fromYear > toYear`, do not call GivenAPI. Show `From year must not exceed to year.` in element id `search_error`.
 - If no movies match, keep `#movie_rows` empty and show `No movies found.` in element id `search_message`.
 
-### 3.4. Create a New Movie
+### 3.4. Create a New Movie (separate page)
 
-Below the table, a form to add a new movie (id namespace prefixed `create_`):
+Clicking `link_create_movie` navigates to **`/Movies/Create_Movie`** — its own page, not part of `/Movies/Director_Movie`. This page has its own form (no prefix needed, since it is the only form on the page):
 
 | Field | Element | Id |
 |---|---|---|
-| Title | `<input type="text">` | `create_input_title` |
-| Release Date | `<input type="date">` | `create_input_releaseDate` |
-| Description | `<textarea>` | `create_input_description` |
-| Language | `<input type="text">` | `create_input_language` |
-| Director | `<select>` (options = all directors) | `create_select_director` |
+| Title | `<input type="text">` | `input_title` |
+| Release Date | `<input type="date">` | `input_releaseDate` |
+| Description | `<textarea>` | `input_description` |
+| Language | `<input type="text">` | `input_language` |
+| Director | `<select>` (options = all directors) | `select_director` |
 | Submit | `<button>`, inner text `Create` | `btn_create` |
 
-On submit: `POST api/Movies/CreateMovie`, then redirect to `/Movies/Director_Movie` (table now includes the new movie). On failure (400), redisplay the form with entered values retained and show an error in `create_error`.
+On submit: `POST api/Movies/CreateMovie`, then redirect to `/Movies/Director_Movie` (table now includes the new movie). On failure (400), redisplay the Create page with entered values retained and show an error in `create_error`.
 
 ### 3.5. Update an Existing Movie
 
@@ -105,8 +106,11 @@ Clicking a row's `btn_delete_{movieId}` calls `DELETE api/Movies/DeleteMovie/{mo
 
 ## 4. HTML Elements ID — Summary
 
+**Page `/Movies/Director_Movie`:**
+
 | Element | Element Tag | Id |
 |---|---|---|
+| Link to Create page | `<a>` | `link_create_movie` |
 | Movie table body | `<tbody>` | `movie_rows` |
 | Each cell in the table | `<td>` | `td_{columnName}_{movieId}` |
 | Edit link | `<a>` | `btn_edit_{movieId}` |
@@ -114,8 +118,13 @@ Clicking a row's `btn_delete_{movieId}` calls `DELETE api/Movies/DeleteMovie/{mo
 | Link to filter Movies of Director | `<a>` | `di_{directorId}` |
 | Search: title/language/director/fromYear/toYear/search/reset | various | `input_title`, `input_language`, `select_director`, `input_fromYear`, `input_toYear`, `btn_search`, `btn_reset` |
 | Search error / message container | any | `search_error`, `search_message` |
-| Create: title/date/desc/lang/director/submit | various | `create_input_title`, `create_input_releaseDate`, `create_input_description`, `create_input_language`, `create_select_director`, `btn_create` |
-| Create error container | any | `create_error` |
 | Edit: hidden id/title/date/desc/lang/director/save | various | `edit_input_id`, `edit_input_title`, `edit_input_releaseDate`, `edit_input_description`, `edit_input_language`, `edit_select_director`, `btn_save` |
 | Edit error container | any | `edit_error` |
 | Delete error container | any | `delete_error` |
+
+**Page `/Movies/Create_Movie`:**
+
+| Element | Element Tag | Id |
+|---|---|---|
+| Title/date/desc/lang/director/submit | various | `input_title`, `input_releaseDate`, `input_description`, `input_language`, `select_director`, `btn_create` |
+| Create error container | any | `create_error` |
