@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Q2.Models.Dtos;
 
 namespace Q2.Pages.Movies
@@ -14,6 +15,15 @@ namespace Q2.Pages.Movies
 
         public string? CreateError { get; set; }
 
+        private string GetGivenAPIBaseURL()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+            string baseURL = config["GivenAPIBaseUrl"]!;
+            return baseURL;
+        }
+
         public async Task OnGetAsync()
         {
             using HttpClient client = new HttpClient();
@@ -23,7 +33,8 @@ namespace Q2.Pages.Movies
         public async Task<IActionResult> OnPostAsync()
         {
             using HttpClient client = new HttpClient();
-            string url = Utilities.GetAbsoluteUrl("api/Movies/CreateMovie");
+            string baseURL = GetGivenAPIBaseURL();
+            string url = $"{baseURL}/api/Movies/CreateMovie";
 
             HttpResponseMessage response = await client.PostAsJsonAsync(url, NewMovie);
 
@@ -39,7 +50,8 @@ namespace Q2.Pages.Movies
 
         private async Task LoadDirectors(HttpClient client)
         {
-            string url = Utilities.GetAbsoluteUrl("api/Directors/GetDirectors");
+            string baseURL = GetGivenAPIBaseURL();
+            string url = $"{baseURL}/api/Directors/GetDirectors";
             Directors = await client.GetFromJsonAsync<List<DirectorDto>>(url) ?? [];
         }
     }

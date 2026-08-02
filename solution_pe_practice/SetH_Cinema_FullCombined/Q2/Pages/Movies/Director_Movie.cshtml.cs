@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Q2.Models.Dtos;
 
 namespace Q2.Pages.Movies
@@ -27,10 +28,20 @@ namespace Q2.Pages.Movies
         public int? FromYear { get; set; }
         public int? ToYear { get; set; }
 
+        private string GetGivenAPIBaseURL()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+            string baseURL = config["GivenAPIBaseUrl"]!;
+            return baseURL;
+        }
+
         public async Task OnGetAsync(int? directorId, int? editId,
             string? title, string? language, int? fromYear, int? toYear)
         {
             using HttpClient client = new HttpClient();
+            string baseURL = GetGivenAPIBaseURL();
 
             await LoadDirectors(client);
 
@@ -60,7 +71,7 @@ namespace Q2.Pages.Movies
                     if (fromYear != null) query.Add($"fromYear={fromYear}");
                     if (toYear != null) query.Add($"toYear={toYear}");
 
-                    string url = Utilities.GetAbsoluteUrl("api/Movies/SearchMovies?" + string.Join("&", query));
+                    string url = $"{baseURL}/api/Movies/SearchMovies?" + string.Join("&", query);
                     Movies = await client.GetFromJsonAsync<List<MovieDto>>(url) ?? [];
 
                     if (Movies.Count == 0)
@@ -69,18 +80,18 @@ namespace Q2.Pages.Movies
             }
             else if (directorId != null)
             {
-                string url = Utilities.GetAbsoluteUrl($"api/Movies/GetMoviesByDirectorId/{directorId}");
+                string url = $"{baseURL}/api/Movies/GetMoviesByDirectorId/{directorId}";
                 Movies = await client.GetFromJsonAsync<List<MovieDto>>(url) ?? [];
             }
             else
             {
-                string url = Utilities.GetAbsoluteUrl("api/Movies/GetMovies");
+                string url = $"{baseURL}/api/Movies/GetMovies";
                 Movies = await client.GetFromJsonAsync<List<MovieDto>>(url) ?? [];
             }
 
             if (editId != null)
             {
-                string url = Utilities.GetAbsoluteUrl($"api/Movies/GetMovieById/{editId}");
+                string url = $"{baseURL}/api/Movies/GetMovieById/{editId}";
                 MovieDto? movie = await client.GetFromJsonAsync<MovieDto>(url);
 
                 if (movie != null)
@@ -102,7 +113,8 @@ namespace Q2.Pages.Movies
         public async Task<IActionResult> OnPostSaveAsync()
         {
             using HttpClient client = new HttpClient();
-            string url = Utilities.GetAbsoluteUrl($"api/Movies/UpdateMovie/{EditMovie.Id}");
+            string baseURL = GetGivenAPIBaseURL();
+            string url = $"{baseURL}/api/Movies/UpdateMovie/{EditMovie.Id}";
 
             HttpResponseMessage response = await client.PutAsJsonAsync(url, EditMovie);
 
@@ -114,14 +126,15 @@ namespace Q2.Pages.Movies
             IsEditing = true;
             EditError = "Update movie failed.";
             await LoadDirectors(client);
-            Movies = await client.GetFromJsonAsync<List<MovieDto>>(Utilities.GetAbsoluteUrl("api/Movies/GetMovies")) ?? [];
+            Movies = await client.GetFromJsonAsync<List<MovieDto>>($"{baseURL}/api/Movies/GetMovies") ?? [];
             return Page();
         }
 
         public async Task<IActionResult> OnGetDeleteAsync(int id)
         {
             using HttpClient client = new HttpClient();
-            string url = Utilities.GetAbsoluteUrl($"api/Movies/DeleteMovie/{id}");
+            string baseURL = GetGivenAPIBaseURL();
+            string url = $"{baseURL}/api/Movies/DeleteMovie/{id}";
 
             HttpResponseMessage response = await client.DeleteAsync(url);
 
@@ -129,7 +142,7 @@ namespace Q2.Pages.Movies
             {
                 DeleteError = "Delete movie failed.";
                 await LoadDirectors(client);
-                Movies = await client.GetFromJsonAsync<List<MovieDto>>(Utilities.GetAbsoluteUrl("api/Movies/GetMovies")) ?? [];
+                Movies = await client.GetFromJsonAsync<List<MovieDto>>($"{baseURL}/api/Movies/GetMovies") ?? [];
                 return Page();
             }
 
@@ -138,7 +151,8 @@ namespace Q2.Pages.Movies
 
         private async Task LoadDirectors(HttpClient client)
         {
-            string url = Utilities.GetAbsoluteUrl("api/Directors/GetDirectors");
+            string baseURL = GetGivenAPIBaseURL();
+            string url = $"{baseURL}/api/Directors/GetDirectors";
             Directors = await client.GetFromJsonAsync<List<DirectorDto>>(url) ?? [];
         }
     }
